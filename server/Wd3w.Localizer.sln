@@ -8,6 +8,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wd3w.Localizer.Common", "Wd
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wd3w.Localizer.Test", "Wd3w.Localizer.Test\Wd3w.Localizer.Test.csproj", "{DE99C6B7-C5A1-4E60-87F6-B3369327CBA7}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Items", "Items", "{54C6072D-6C13-4E0A-9C36-57FF5A49D293}"
+ProjectSection(SolutionItems) = preProject
+	..\LICENSE = ..\LICENSE
+	..\README.md = ..\README.md
+EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
