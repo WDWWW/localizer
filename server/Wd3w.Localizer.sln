@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wd3w.Localizer.Api", "Wd3w.Localizer.Api\Wd3w.Localizer.Api.csproj", "{0B1D344D-2988-4906-9802-6B46A53C1837}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wd3w.Localizer.Domain", "Wd3w.Localizer.Domain\Wd3w.Localizer.Domain.csproj", "{B44FF889-AD30-4D15-A08A-FF9994832F71}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wd3w.Localizer.Common", "Wd3w.Localizer.Common\Wd3w.Localizer.Common.csproj", "{D826C9DD-7FB6-4674-AEAF-C2271B3DC9F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wd3w.Localizer.Test", "Wd3w.Localizer.Test\Wd3w.Localizer.Test.csproj", "{DE99C6B7-C5A1-4E60-87F6-B3369327CBA7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0B1D344D-2988-4906-9802-6B46A53C1837}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B1D344D-2988-4906-9802-6B46A53C1837}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B44FF889-AD30-4D15-A08A-FF9994832F71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B44FF889-AD30-4D15-A08A-FF9994832F71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B44FF889-AD30-4D15-A08A-FF9994832F71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B44FF889-AD30-4D15-A08A-FF9994832F71}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D826C9DD-7FB6-4674-AEAF-C2271B3DC9F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D826C9DD-7FB6-4674-AEAF-C2271B3DC9F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D826C9DD-7FB6-4674-AEAF-C2271B3DC9F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D826C9DD-7FB6-4674-AEAF-C2271B3DC9F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE99C6B7-C5A1-4E60-87F6-B3369327CBA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE99C6B7-C5A1-4E60-87F6-B3369327CBA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE99C6B7-C5A1-4E60-87F6-B3369327CBA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE99C6B7-C5A1-4E60-87F6-B3369327CBA7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

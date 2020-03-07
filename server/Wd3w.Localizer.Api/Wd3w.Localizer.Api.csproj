@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.2" />
+      <PackageReference Include="Wd3w.AspNetCore.Permission" Version="3.1.1" />
+      <PackageReference Include="Wd3w.AspNetCore.TokenAuthentication" Version="3.1.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Wd3w.Localizer.Common\Wd3w.Localizer.Common.csproj" />
+      <ProjectReference Include="..\Wd3w.Localizer.Domain\Wd3w.Localizer.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="obj\Debug\netcoreapp3.1" />
+    </ItemGroup>
+
+
+</Project>
