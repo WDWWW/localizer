@@ -16,6 +16,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="Controllers" />
       <Folder Include="obj\Debug\netcoreapp3.1" />
     </ItemGroup>
 
