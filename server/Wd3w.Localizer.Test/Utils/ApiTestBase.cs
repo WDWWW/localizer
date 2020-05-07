@@ -16,7 +16,11 @@ namespace Wd3w.Localizer.Test.Utils
 
         private IServiceProvider _serviceProvider;
 
-        protected delegate void ConfigureTestServiceHandler(IServiceCollection services);
+        private delegate void ConfigureTestServiceHandler(IServiceCollection services);
+
+        private delegate Task SetupFixtureHandler(IServiceProvider provider);
+
+        private event SetupFixtureHandler OnSetupFixtures;
 
         private event ConfigureTestServiceHandler OnConfigureTestServices;
 
@@ -32,6 +36,11 @@ namespace Wd3w.Localizer.Test.Utils
                     {
                         OnConfigureTestServices?.Invoke(services);
                         _serviceProvider = services.BuildServiceProvider();
+
+                        using (_serviceProvider.CreateScope())
+                        {
+                            OnSetupFixtures?.Invoke(_serviceProvider).Wait();
+                        }
                     }))
                 .CreateClient();
         }
@@ -65,6 +74,11 @@ namespace Wd3w.Localizer.Test.Utils
             var mock = new Mock<TService>();
             ReplaceService(mock.Object);
             return mock;
+        }
+
+        protected async Task SetupFixture<TService>(Func<TService, Task> action)
+        {
+            OnSetupFixtures += provider => action.Invoke(provider.GetService<TService>());
         }
         
         protected async Task UsingService<TService>(Action<TService> action)
