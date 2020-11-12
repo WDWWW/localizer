@@ -1,8 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netcoreapp3.1</TargetFramework>
-
         <IsPackable>false</IsPackable>
 
         <Nullable>enable</Nullable>
@@ -11,8 +9,8 @@
     <ItemGroup>
         <PackageReference Include="FluentAssertions" Version="5.10.2" />
         <PackageReference Include="Hestify" Version="1.0.0" />
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="3.1.3" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.1.2" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="$(AspNetCoreVersion)" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="$(EntityFrameowrkCoreVersion)" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0" />
         <PackageReference Include="Moq" Version="4.13.1" />
         <PackageReference Include="xunit" Version="2.4.0" />
