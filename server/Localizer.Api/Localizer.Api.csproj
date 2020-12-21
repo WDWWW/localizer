@@ -7,8 +7,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Wd3w.Localizer.Common\Wd3w.Localizer.Common.csproj" />
-      <ProjectReference Include="..\Wd3w.Localizer.Domain\Wd3w.Localizer.Domain.csproj" />
+      <ProjectReference Include="..\Localizer.Common\Localizer.Common.csproj" />
+      <ProjectReference Include="..\Localizer.Domain\Localizer.Domain.csproj" />
     </ItemGroup>
 
 

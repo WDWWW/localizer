@@ -1,10 +1,10 @@
 using System.Net;
 using System.Threading.Tasks;
 using FluentAssertions;
-using Wd3w.Localizer.Test.Utils;
+using Localizer.Test.Utils;
 using Xunit;
 
-namespace Wd3w.Localizer.Test
+namespace Localizer.Test
 {
     public class ApiTestBaseTest : ApiTestBase
     {

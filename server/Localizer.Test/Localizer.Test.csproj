@@ -19,7 +19,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Wd3w.Localizer.Api\Wd3w.Localizer.Api.csproj" />
+      <ProjectReference Include="..\Localizer.Api\Localizer.Api.csproj" />
     </ItemGroup>
 
 </Project>

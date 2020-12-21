@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc.Testing;
-using Wd3w.Localizer.Api;
+﻿using Localizer.Api;
+using Microsoft.AspNetCore.Mvc.Testing;
 
-namespace Wd3w.Localizer.Test.Utils
+namespace Localizer.Test.Utils
 {
     public class LocalizerApplicationFactory : WebApplicationFactory<Startup>
     {

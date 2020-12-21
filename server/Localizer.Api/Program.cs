@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace Wd3w.Localizer.Api
+namespace Localizer.Api
 {
     public class Program
     {

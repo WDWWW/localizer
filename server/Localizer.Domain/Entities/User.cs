@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Wd3w.Localizer.Domain.Entities
+namespace Localizer.Domain.Entities
 {
     public class User
     {

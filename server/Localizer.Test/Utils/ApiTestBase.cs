@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Moq;
 using Xunit;
 
-namespace Wd3w.Localizer.Test.Utils
+namespace Localizer.Test.Utils
 {
     public abstract class ApiTestBase : IClassFixture<LocalizerApplicationFactory>
     {
