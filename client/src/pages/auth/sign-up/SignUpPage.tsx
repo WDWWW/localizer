@@ -12,20 +12,20 @@ const SignUpPage: React.FC = () => {
     console.log(test)
 
     return (<>
-        <div className="sign-in-page_header">
+        <div>
             <h1>Register Account</h1>
             <p>Feature rich self hosted localization system.</p>
         </div>
-        <Form name="normal_sign-in" className="sign-in-form">
+        <Form name="normal_sign-in">
             <Form.Item name="username" rules={[{required: true, message: 'Please input your Username!'}]}>
-                <Input prefix={<UserOutlined className="site-form-item-icon"/>} placeholder="Username"/>
+                <Input prefix={<UserOutlined/>} placeholder="Username"/>
             </Form.Item>
             <Form.Item name="email" rules={[{required: true, message: 'Please input your email!'}]}>
-                <Input prefix={<MailOutlined className="site-form-item-icon"/>} placeholder="user@email.com"/>
+                <Input prefix={<MailOutlined/>} placeholder="user@email.com"/>
             </Form.Item>
             <Form.Item name="password" rules={[{required: true, message: 'Please input your Password!'}]}>
                 <Input
-                    prefix={<LockOutlined className="site-form-item-icon"/>}
+                    prefix={<LockOutlined/>}
                     type="password"
                     placeholder="Password"/>
             </Form.Item>
@@ -35,7 +35,7 @@ const SignUpPage: React.FC = () => {
                     {required: true, message: 'Please input password corfirm!'}
                 ]}>
                 <Input
-                    prefix={<LockOutlined className="site-form-item-icon"/>}
+                    prefix={<LockOutlined/>}
                     type="password"
                     placeholder="Password confirm"/>
             </Form.Item>
