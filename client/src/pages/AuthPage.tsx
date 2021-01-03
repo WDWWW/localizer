@@ -1,8 +1,10 @@
 import React from 'react'
 import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom'
-import SignInPage from './sign-in/SignInPage'
-import SignUpPage from './sign-up/SignUpPage'
+import SignInPage from './auth/SignInPage'
+import SignUpPage from './auth/SignUpPage'
 import styled from 'styled-components'
+import { useStores } from '../commom/stores/StoreProvider'
+import { observer } from 'mobx-react-lite'
 
 const AuthPageBackground = styled.div`
 	display: flex;
@@ -36,8 +38,13 @@ const AuthPageWrapper = styled.div`
 	transition: all 0.4s ease-out;
 `
 
-const AuthPage: React.FC = () => {
+const AuthPage: React.FC = observer(() => {
 	const { path } = useRouteMatch()
+
+	const { authStore } = useStores()
+
+	if (authStore.isLoggedIn) return <Redirect to="/" />
+
 	return (
 		<AuthPageBackground>
 			<AuthPageWrapper>
@@ -51,6 +58,5 @@ const AuthPage: React.FC = () => {
 			</AuthPageWrapper>
 		</AuthPageBackground>
 	)
-}
-
+})
 export default AuthPage

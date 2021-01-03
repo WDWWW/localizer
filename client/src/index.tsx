@@ -5,9 +5,10 @@ import App from './App'
 import reportWebVitals from './reportWebVitals'
 
 ReactDOM.render(
-	<React.StrictMode>
-		<App />
-	</React.StrictMode>,
+	<App />,
+	// Ref https://github.com/ant-design/ant-design/issues/22493
+	// <React.StrictMode>
+	// </React.StrictMode>,
 	document.getElementById('root'),
 )
 
