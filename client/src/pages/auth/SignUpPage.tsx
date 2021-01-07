@@ -1,18 +1,16 @@
 import React from 'react'
 import { Button, Form, Input } from 'antd'
 import { LockOutlined, MailOutlined, UserOutlined } from '@ant-design/icons'
-import { Link, useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const SignUpPage: React.FC = () => {
-	const history = useHistory()
-
 	return (
 		<>
 			<div>
 				<h1>Register Account</h1>
 				<p>Feature rich self hosted localization system.</p>
 			</div>
-			<Form name="normal_sign-in">
+			<Form>
 				<Form.Item name="username" rules={[{ required: true, message: 'Please input your Username!' }]}>
 					<Input prefix={<UserOutlined />} placeholder="Username" />
 				</Form.Item>

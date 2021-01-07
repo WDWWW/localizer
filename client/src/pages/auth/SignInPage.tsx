@@ -1,4 +1,4 @@
-import React, { MouseEventHandler } from 'react'
+import React, { MouseEventHandler, useCallback } from 'react'
 import { Button, Checkbox, Divider, Form, Input, notification } from 'antd'
 import { GithubOutlined, LockOutlined, UserOutlined } from '@ant-design/icons'
 import { Link, Redirect, RouteProps, useHistory } from 'react-router-dom'
@@ -71,9 +71,9 @@ const SignInPage: React.FC<RouteProps> = props => {
 						<Checkbox>Remember me</Checkbox>
 					</Form.Item>
 
-					<ForgotPassword href="" onClick={notYetImpl}>
-						Forgot password
-					</ForgotPassword>
+					<Link to="/auth/reset-password">
+						<ForgotPassword href="/auth/reset-password">Forgot password</ForgotPassword>
+					</Link>
 				</Form.Item>
 				<Form.Item style={{ marginBottom: '16px' }}>
 					<Button type="primary" htmlType="submit" block>

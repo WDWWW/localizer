@@ -5,6 +5,7 @@ import SignUpPage from './auth/SignUpPage'
 import styled from 'styled-components'
 import { useStores } from '../commom/stores/StoreProvider'
 import { observer } from 'mobx-react-lite'
+import ResetPasswordPage from './auth/ResetPasswordPage'
 
 const AuthPageBackground = styled.div`
 	display: flex;
@@ -30,7 +31,7 @@ const AuthPageBackground = styled.div`
 const AuthPageWrapper = styled.div`
 	position: relative;
 	background: white;
-	width: 400px;
+	min-width: 400px;
 	padding: 48px;
 	border: 1px solid #eee;
 	border-radius: 4px;
@@ -54,6 +55,7 @@ const AuthPage: React.FC = observer(() => {
 					</Route>
 					<Route path="/auth/sign-in" component={SignInPage} />
 					<Route path="/auth/sign-up" component={SignUpPage} />
+					<Route path="/auth/reset-password" component={ResetPasswordPage} />
 				</Switch>
 			</AuthPageWrapper>
 		</AuthPageBackground>

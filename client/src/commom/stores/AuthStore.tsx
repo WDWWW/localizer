@@ -1,5 +1,5 @@
 import { makeAutoObservable } from 'mobx'
-import { utils } from './Utils'
+import { autoSave } from './Utils'
 
 export class AuthStore {
 	public accessToken: string
@@ -7,7 +7,7 @@ export class AuthStore {
 	constructor() {
 		makeAutoObservable(this)
 		this.accessToken = ''
-		utils(this, 'authStore')
+		autoSave(this, 'authStore')
 	}
 
 	get isLoggedIn(): boolean {
