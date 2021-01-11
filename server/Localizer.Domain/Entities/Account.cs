@@ -1,8 +1,9 @@
 using System.ComponentModel.DataAnnotations;
+using Localizer.Domain.Entities.Common;
 
 namespace Localizer.Domain.Entities
 {
-    public class User
+    public class Account : EntityBase
     {
         [Required]
         public string Email { get; set; }
