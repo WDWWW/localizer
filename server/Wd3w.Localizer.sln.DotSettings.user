@@ -9,5 +9,7 @@
     &lt;TestId&gt;xUnit::DE99C6B7-C5A1-4E60-87F6-B3369327CBA7::net5.0::Localizer.Test.Libraries.NSubstituteUsageTest.MockPropertyTest&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::DE99C6B7-C5A1-4E60-87F6-B3369327CBA7::net5.0::Localizer.Test.Libraries.NSubstituteUsageTest.MockMethod&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::DE99C6B7-C5A1-4E60-87F6-B3369327CBA7::net5.0::Localizer.Test.Libraries.NSubstituteUsageTest.MockAsyncMethod&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::DE99C6B7-C5A1-4E60-87F6-B3369327CBA7::net5.0::Localizer.Test.Domain.Common.WriteTimeInterceptorTest.CreatedAtTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::DE99C6B7-C5A1-4E60-87F6-B3369327CBA7::net5.0::Localizer.Test.Domain.Common.WriteTimeInterceptorTest.UpdatedAtTest&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

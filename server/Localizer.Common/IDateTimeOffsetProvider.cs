@@ -2,8 +2,8 @@
 
 namespace Localizer.Common
 {
-    public interface IDateTimeOffsetProvider
-    {
-        public DateTimeOffset Now { get; }
-    }
+	public interface IDateTimeOffsetProvider
+	{
+		public DateTimeOffset Now { get; }
+	}
 }
