@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net5.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Localizer.Api\Localizer.Api.csproj" />
+      <ProjectReference Include="..\Localizer.Common\Localizer.Common.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="NJsonSchema" Version="10.3.2" />
+      <PackageReference Include="Typin" Version="2.1.1" />
+    </ItemGroup>
+
+</Project>
