@@ -4,6 +4,7 @@
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="$(EntityFrameowrkCoreVersion)" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="$(EntityFrameowrkCoreVersion)" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="$(EntityFrameowrkCoreVersion)" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="$(EntityFrameowrkCoreVersion)" />
     </ItemGroup>
 
     <ItemGroup>

@@ -16,11 +16,16 @@
       "type": "object",
       "additionalProperties": false,
       "required": [
-        "SecretSettings"
+        "SecretSettings",
+        "DatabaseConnection"
       ],
       "properties": {
         "SecretSettings": {
           "$ref": "#/definitions/AuthenticationSecretSettings"
+        },
+        "DatabaseConnection": {
+          "type": "string",
+          "minLength": 1
         }
       }
     },
