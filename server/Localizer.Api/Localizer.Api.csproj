@@ -16,9 +16,5 @@
       <Folder Include="Controllers" />
     </ItemGroup>
 
-    <ItemGroup>
-      <None Include="localizer.schema.json" />
-    </ItemGroup>
-
 
 </Project>

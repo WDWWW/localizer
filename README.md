@@ -14,5 +14,12 @@
 ## Installation 
 
 
+## Project setup
+
+```sh
+# Generate appsettings schema for validating configuration.
+dotnet run -- create-schema -o ../
+```
+
 
 ## License 
