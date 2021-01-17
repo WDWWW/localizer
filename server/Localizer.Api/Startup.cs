@@ -1,4 +1,5 @@
 using System.Text;
+using Localizer.Api.Infrastructure;
 using Localizer.Api.Repositories;
 using Localizer.Api.Services;
 using Localizer.Common;
@@ -42,6 +43,7 @@ namespace Localizer.Api
 					return true;
 				});
 			services.AddScoped(provider => provider.GetRequiredService<IOptionsSnapshot<LocalizerSettings>>().Value);
+			services.AddScoped<EmailService>();
 			services.AddScoped<AccountRepository>();
 			services.AddScoped<AuthenticationService>();
 			services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

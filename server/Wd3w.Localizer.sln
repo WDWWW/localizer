@@ -13,6 +13,7 @@ ProjectSection(SolutionItems) = preProject
 	..\LICENSE = ..\LICENSE
 	..\README.md = ..\README.md
 	Directory.Build.props = Directory.Build.props
+	.editorconfig = .editorconfig
 EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Localizer.InternalTools", "Localizer.InternalTools\Localizer.InternalTools.csproj", "{46A144A6-F023-4CB3-B7E3-302CFDC1EE25}"

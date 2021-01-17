@@ -1,15 +1,7 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=116c7706_002De004_002D4e4e_002D8d7e_002Da1b246329caf/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="MockPropertyTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;xUnit::DE99C6B7-C5A1-4E60-87F6-B3369327CBA7::net5.0::Localizer.Test.Libraries.NSubstituteUsageTest.MockPropertyTest&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
+  &lt;Project Location="D:\project\localizer\server\Localizer.Test" Presentation="&amp;lt;Localizer.Test&amp;gt;" /&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=1b9bd0b4_002D7ec2_002D42b5_002Dbbaa_002D7354dceb2c06/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Test" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;xUnit::DE99C6B7-C5A1-4E60-87F6-B3369327CBA7::net5.0::Localizer.Test.Libraries.NSubstituteUsageTest.MockPropertyTest&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::DE99C6B7-C5A1-4E60-87F6-B3369327CBA7::net5.0::Localizer.Test.Libraries.NSubstituteUsageTest.MockMethod&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::DE99C6B7-C5A1-4E60-87F6-B3369327CBA7::net5.0::Localizer.Test.Libraries.NSubstituteUsageTest.MockAsyncMethod&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::DE99C6B7-C5A1-4E60-87F6-B3369327CBA7::net5.0::Localizer.Test.Domain.Common.WriteTimeInterceptorTest.CreatedAtTest&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::DE99C6B7-C5A1-4E60-87F6-B3369327CBA7::net5.0::Localizer.Test.Domain.Common.WriteTimeInterceptorTest.UpdatedAtTest&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
+  &lt;Project Location="D:\project\localizer\server\Localizer.Test" Presentation="&amp;lt;Localizer.Test&amp;gt;" /&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
