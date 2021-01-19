@@ -1,20 +1,23 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
-    <ItemGroup>
-      <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.2" />
-      <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.2" />
-      <PackageReference Include="Wd3w.AspNetCore.Permission" Version="3.1.1" />
-      <PackageReference Include="Wd3w.AspNetCore.TokenAuthentication" Version="3.1.1" />
-    </ItemGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\Localizer.Common\Localizer.Common.csproj" />
-      <ProjectReference Include="..\Localizer.Domain\Localizer.Domain.csproj" />
-    </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="AspNetCore.HealthChecks.Network" Version="5.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.2" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.2" />
+    <PackageReference Include="Wd3w.AspNetCore.Permission" Version="3.1.1" />
+    <PackageReference Include="Wd3w.AspNetCore.TokenAuthentication" Version="3.1.1" />
+  </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Controllers" />
-    </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Localizer.Common\Localizer.Common.csproj" />
+    <ProjectReference Include="..\Localizer.Domain\Localizer.Domain.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <NoWarn>$(NoWarn);1591</NoWarn>
+    <DocumentationFile>bin\$(Configuration)\Localizer.Api.xml</DocumentationFile>
+  </PropertyGroup>
 
 
 </Project>
