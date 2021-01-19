@@ -4,8 +4,8 @@ using System.Text;
 using AutoMapper;
 using Localizer.Api.Infrastructure;
 using Localizer.Api.Infrastructure.HealthChecks;
-using Localizer.Api.Resources.Account;
-using Localizer.Api.Resources.Auth;
+using Localizer.Api.Resources.AccountResource;
+using Localizer.Api.Resources.AuthResource;
 using Localizer.Common;
 using Localizer.Domain;
 using Localizer.Domain.Infrastructure;
@@ -49,7 +49,12 @@ namespace Localizer.Api
 
 			services.AddScoped(provider => provider.GetRequiredService<IOptionsSnapshot<LocalizerSettings>>().Value);
 			services.AddScoped<EmailService>();
+			
+			// Account related registrations.
+			services.AddScoped<AccountService>();
 			services.AddScoped<AccountRepository>();
+			
+			
 			services.AddScoped<AuthenticationService>();
 			services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 				.AddJwtBearer(options =>

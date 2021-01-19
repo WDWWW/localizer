@@ -1,8 +1,10 @@
 using System.ComponentModel.DataAnnotations;
 using Localizer.Domain.Entities.Common;
+using Microsoft.EntityFrameworkCore;
 
 namespace Localizer.Domain.Entities
 {
+	[Index(nameof(Email))]
 	public class Account : EntityBase
 	{
 		[Required]

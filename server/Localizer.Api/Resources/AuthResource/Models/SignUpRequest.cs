@@ -2,9 +2,9 @@
 
 using System.ComponentModel.DataAnnotations;
 
-namespace Localizer.Api.Resources.Account.Models
+namespace Localizer.Api.Resources.AuthResource.Models
 {
-	public abstract class CreateAccountRequest
+	public abstract class SignUpRequest
 	{
 		[Required]
 		public string Name { get; set; }

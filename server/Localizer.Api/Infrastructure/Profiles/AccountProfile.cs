@@ -1,7 +1,7 @@
 ﻿// unset
 
 using AutoMapper;
-using Localizer.Api.Resources.Account.Models;
+using Localizer.Api.Resources.AuthResource.Models;
 using Localizer.Domain.Entities;
 
 namespace Localizer.Api.Infrastructure.Profiles
@@ -10,7 +10,7 @@ namespace Localizer.Api.Infrastructure.Profiles
 	{
 		public AccountProfile()
 		{
-			CreateMap<CreateAccountRequest, Account>(MemberList.Source);
+			CreateMap<SignUpRequest, Account>(MemberList.Source);
 		}
 	}
 }
