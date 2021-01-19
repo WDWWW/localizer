@@ -16,16 +16,31 @@
       "type": "object",
       "additionalProperties": false,
       "required": [
-        "SecretSettings",
-        "DatabaseConnection"
+        "Authentication",
+        "DatabaseConnection",
+        "EmailServer"
       ],
       "properties": {
-        "SecretSettings": {
-          "$ref": "#/definitions/AuthenticationSecretSettings"
+        "Authentication": {
+          "description": "Localizer authentication configuration\n            ",
+          "oneOf": [
+            {
+              "$ref": "#/definitions/AuthenticationSecretSettings"
+            }
+          ]
         },
         "DatabaseConnection": {
           "type": "string",
+          "description": "Localizer database connection string. only allowed for postgresql.\n            ",
           "minLength": 1
+        },
+        "EmailServer": {
+          "description": "Email server configuration for sending notification and service notice.\n            ",
+          "oneOf": [
+            {
+              "$ref": "#/definitions/EmailServerSettings"
+            }
+          ]
         }
       }
     },
@@ -39,10 +54,50 @@
       "properties": {
         "ServiceName": {
           "type": "string",
+          "description": "System default name for \n            ",
           "minLength": 1
         },
         "TokenSigningKey": {
           "type": "string",
+          "description": "Token signing key for generating jwt key as access token.\n            ",
+          "minLength": 1
+        }
+      }
+    },
+    "EmailServerSettings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Host",
+        "NoReply",
+        "UserName",
+        "Password"
+      ],
+      "properties": {
+        "Host": {
+          "type": "string",
+          "description": "Email server host.\n            ",
+          "minLength": 1
+        },
+        "Port": {
+          "type": "integer",
+          "description": "SMTP port : (default: 25)\n            ",
+          "format": "int32",
+          "default": 25
+        },
+        "NoReply": {
+          "type": "string",
+          "description": "no-reply address (ex: no-reply@localizer.com)\n            ",
+          "minLength": 1
+        },
+        "UserName": {
+          "type": "string",
+          "description": "SMTP user name.\n            ",
+          "minLength": 1
+        },
+        "Password": {
+          "type": "string",
+          "description": "SMTP user password.\n            ",
           "minLength": 1
         }
       }

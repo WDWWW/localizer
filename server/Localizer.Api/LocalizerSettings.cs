@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Runtime.InteropServices;
 
 // ReSharper disable ClassNeverInstantiated.Global
 // ReSharper disable UnusedMember.Global
@@ -13,7 +12,7 @@ namespace Localizer.Api
 		///		Localizer authentication configuration
 		/// </summary>
 		[Required]
-		public AuthenticationSecretSettings SecretSettings { get; set; } = new();
+		public AuthenticationSecretSettings Authentication { get; set; } = new();
 
 		/// <summary>
 		///		Localizer database connection string. only allowed for postgresql.
