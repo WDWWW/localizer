@@ -20,6 +20,13 @@ namespace Localizer.Domain.Infrastructure
 
 		public Task<bool> AnyIdAsync(TKey key) => Query.AnyAsync(entity => entity.Id.Equals(key));
 
+		public async Task<TEntity> AddAsync(TEntity entity)
+		{
+			var entry = await _db.Set<TEntity>().AddAsync(entity);
+			await _db.SaveChangesAsync();
+			return entry.Entity;
+		}
+
 		public int SaveChanges() => _db.SaveChanges();
 
 		public Task<int> SaveChangesAsync(CancellationToken cancellationToken = new()) => _db.SaveChangesAsync(cancellationToken);

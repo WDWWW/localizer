@@ -5,11 +5,11 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using Localizer.Api.Repositories;
+using Localizer.Api.Resources.Account;
 using Localizer.Common;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Localizer.Api.Services
+namespace Localizer.Api.Resources.Auth
 {
 	public class AuthenticationService
 	{
