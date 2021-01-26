@@ -3,7 +3,9 @@ using System.Linq;
 using System.Text;
 using AutoMapper;
 using Localizer.Api.Infrastructure;
+using Localizer.Api.Infrastructure.Filters;
 using Localizer.Api.Infrastructure.HealthChecks;
+using Localizer.Api.Infrastructure.Helpers;
 using Localizer.Api.Resources.AccountResource;
 using Localizer.Api.Resources.AuthResource;
 using Localizer.Common;
@@ -45,8 +47,10 @@ namespace Localizer.Api
 			services.AddOptions<LocalizerSettings>()
 				.Bind(Configuration.GetSection("LocalizerSettings"))
 				.ValidateDataAnnotations()
-				.Validate((LocalizerSettings _, HealthCheckService healthCheck) => healthCheck.CheckHealthAsync().Result.Status == HealthStatus.Healthy);
+				.Validate((LocalizerSettings _, HealthCheckService healthCheck) => healthCheck.CheckHealthAsync().Result.Status == HealthStatus.Healthy, "Health check failed before startup.")
+				.ValidateOnStartupTime();
 
+			services.AddTransient<IStartupFilter, HealthCheckStartupFilter>();
 			services.AddScoped(provider => provider.GetRequiredService<IOptionsSnapshot<LocalizerSettings>>().Value);
 			services.AddScoped<EmailService>();
 			
@@ -82,10 +86,7 @@ namespace Localizer.Api
 					.Options;
 			});
 
-			services.AddAutoMapper(config =>
-			{
-
-			}, Enumerable.Empty<Type>(), ServiceLifetime.Singleton);
+			services.AddAutoMapper(_ => { }, new []{typeof(AuthProfile)}, ServiceLifetime.Singleton);
 
 			services.AddScoped<DbContextHealthCheck>();
 			services.AddScoped<LocalizerMailServerHealthCheck>();

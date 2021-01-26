@@ -4,11 +4,11 @@ using AutoMapper;
 using Localizer.Api.Resources.AuthResource.Models;
 using Localizer.Domain.Entities;
 
-namespace Localizer.Api.Infrastructure.Profiles
+namespace Localizer.Api.Resources.AuthResource
 {
-	public class AccountProfile : Profile
+	public class AuthProfile : Profile
 	{
-		public AccountProfile()
+		public AuthProfile()
 		{
 			CreateMap<SignUpRequest, Account>(MemberList.Source);
 		}

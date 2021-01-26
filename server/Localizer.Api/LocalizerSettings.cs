@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Text;
 
 // ReSharper disable ClassNeverInstantiated.Global
 // ReSharper disable UnusedMember.Global
@@ -25,7 +26,7 @@ namespace Localizer.Api
 		///		Email server configuration for sending notification and service notice.
 		/// </summary>
 		[Required]
-		public EmailServerSettings EmailServer { get; set; }
+		public EmailServerSettings EmailServer { get; set; } = new();
 	}
 
 	
@@ -71,7 +72,7 @@ namespace Localizer.Api
 		public string ServiceName { get; set; } = string.Empty;
 
 		/// <summary>
-		///		Token signing key for generating jwt key as access token.
+		///		Token signing key for generating jwt key as access token. (ASCII only)
 		/// </summary>
 		[Required]
 		public string TokenSigningKey { get; set; } = string.Empty;

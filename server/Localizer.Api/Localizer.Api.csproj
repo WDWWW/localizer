@@ -2,11 +2,9 @@
 
 
   <ItemGroup>
-    <PackageReference Include="AspNetCore.HealthChecks.Network" Version="5.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.2" />
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.2" />
-    <PackageReference Include="Wd3w.AspNetCore.Permission" Version="3.1.1" />
-    <PackageReference Include="Wd3w.AspNetCore.TokenAuthentication" Version="3.1.1" />
+    <PackageReference Include="AspNetCore.HealthChecks.Network" Version="$(AspNetCoreVersion)" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="$(AspNetCoreVersion)" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="$(EntityFrameowrkCoreVersion)" />
   </ItemGroup>
 
   <ItemGroup>
@@ -14,9 +12,14 @@
     <ProjectReference Include="..\Localizer.Domain\Localizer.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Infrastructure\Profiles" />
+  </ItemGroup>
+
   <PropertyGroup>
     <NoWarn>$(NoWarn);1591</NoWarn>
     <DocumentationFile>bin\$(Configuration)\Localizer.Api.xml</DocumentationFile>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
 

@@ -1,105 +1,37 @@
 ﻿using System;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Hestify;
-using Microsoft.AspNetCore.TestHost;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-using Moq;
-using Xunit;
+using Localizer.Api;
+using Microsoft.Extensions.Logging;
+using Wd3w.AspNetCore.EasyTesting;
+using Xunit.Abstractions;
 
 namespace Localizer.Test.Utils
 {
-	public abstract class ApiTestBase : IClassFixture<LocalizerApplicationFactory>
+	public abstract class ApiTestBase : IDisposable
 	{
-		private readonly LocalizerApplicationFactory _factory;
+		// ReSharper disable once InconsistentNaming
+		protected readonly SystemUnderTest SUT;
 
-		private IServiceProvider _serviceProvider;
-
-		protected ApiTestBase(LocalizerApplicationFactory factory)
+		protected ApiTestBase(ITestOutputHelper helper)
 		{
-			_factory = factory;
-		}
-
-		private event SetupFixtureHandler OnSetupFixtures;
-
-		private event ConfigureTestServiceHandler OnConfigureTestServices;
-
-		protected HttpClient CreateClient()
-		{
-			return _factory.WithWebHostBuilder(builder => builder.ConfigureTestServices(services =>
+			SUT = new SystemUnderTest<Startup>()
+				.ReplaceLoggerFactory(builder => builder.AddXUnit(helper))
+				.DisableOptionValidations<LocalizerSettings>()
+				.DisableStartupFilters()
+				.ReplaceConfigureOptions<LocalizerSettings>(settings =>
 				{
-					OnConfigureTestServices?.Invoke(services);
-					_serviceProvider = services.BuildServiceProvider();
-
-					using (_serviceProvider.CreateScope())
+					settings.Authentication = new()
 					{
-						OnSetupFixtures?.Invoke(_serviceProvider).Wait();
-					}
-				}))
-				.CreateClient();
+						ServiceName = "localizer_test", 
+						TokenSigningKey = "localizer_signing_key_test",
+					};
+					settings.DatabaseConnection = "";
+					settings.EmailServer = new();
+				});
 		}
 
-		protected HestifyClient CreateHestify(string resourceUri) => CreateClient().Resource(resourceUri);
-
-		protected void ReplaceService<TService, TImplementation>(ServiceLifetime lifetime = ServiceLifetime.Scoped)
+		public void Dispose()
 		{
-			CheckClientIsNotCreated(nameof(ReplaceService));
-			OnConfigureTestServices += services =>
-				services.Replace(new ServiceDescriptor(typeof(TService), typeof(TImplementation), lifetime));
+			SUT.Dispose();
 		}
-
-		protected void ReplaceService<TService>(ServiceLifetime lifetime = ServiceLifetime.Scoped)
-			where TService : class
-		{
-			CheckClientIsNotCreated(nameof(ReplaceService));
-			OnConfigureTestServices += services =>
-				services.Replace(new ServiceDescriptor(typeof(TService), typeof(TService), lifetime));
-		}
-
-		protected void ReplaceService<TService>(TService obj)
-		{
-			CheckClientIsNotCreated(nameof(ReplaceService));
-			OnConfigureTestServices += services =>
-				services.Replace(new ServiceDescriptor(typeof(TService), _ => obj, ServiceLifetime.Singleton));
-		}
-
-		protected Mock<TService> MockService<TService>() where TService : class
-		{
-			CheckClientIsNotCreated(nameof(MockService));
-			var mock = new Mock<TService>();
-			ReplaceService(mock.Object);
-			return mock;
-		}
-
-		protected async Task SetupFixture<TService>(Func<TService, Task> action)
-		{
-			OnSetupFixtures += provider => action.Invoke(provider.GetService<TService>());
-		}
-
-		protected async Task UsingService<TService>(Action<TService> action)
-		{
-			CheckClientIsCreated(nameof(UsingService));
-			using var scope = _serviceProvider.CreateScope();
-		}
-
-		private void CheckClientIsNotCreated(string methodName)
-		{
-			if (_serviceProvider != default)
-			{
-				throw new InvalidOperationException(
-					$"{methodName}는 CreateClient/CreateHestify CreateClient/CreateHestify 호출 이전에만 사용할 수 있습니다.");
-			}
-		}
-
-		private void CheckClientIsCreated(string methodName)
-		{
-			if (_serviceProvider == default)
-				throw new InvalidOperationException($"{methodName}는 CreateClient/CreateHestify 생성 이후에만 사용할 수 있습니다.");
-		}
-
-		private delegate void ConfigureTestServiceHandler(IServiceCollection services);
-
-		private delegate Task SetupFixtureHandler(IServiceProvider provider);
 	}
 }
