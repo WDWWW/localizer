@@ -2,7 +2,7 @@
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
         <AspNetCoreVersion>5.0.1</AspNetCoreVersion>
-        <AspNetCoreEasyTestingVersion>5.0.3</AspNetCoreEasyTestingVersion>
+        <AspNetCoreEasyTestingVersion>5.0.4</AspNetCoreEasyTestingVersion>
         <EntityFrameowrkCoreVersion>5.0.1</EntityFrameowrkCoreVersion>
     </PropertyGroup>
 </Project>

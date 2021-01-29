@@ -8,15 +8,15 @@
 
     <ItemGroup>
         <PackageReference Include="AspNetCore.EasyTesting" Version="$(AspNetCoreEasyTestingVersion)" />
-        <PackageReference Include="AspNetCore.EasyTesting.EntityFrameworkCore" Version="$(AspNetCoreEasyTestingVersion)" /> 
+        <PackageReference Include="AspNetCore.EasyTesting.EntityFrameworkCore" Version="$(AspNetCoreEasyTestingVersion)" />
+        <PackageReference Include="AspNetCore.EasyTesting.Hestify" Version="5.0.3" /> 
         <PackageReference Include="AspNetCore.EasyTesting.NSubstitute" Version="$(AspNetCoreEasyTestingVersion)" />
         <PackageReference Include="FluentAssertions" Version="5.10.3" />
-      <PackageReference Include="MartinCostello.Logging.XUnit" Version="0.1.0"/>
+      <PackageReference Include="MartinCostello.Logging.XUnit" Version="0.1.0" />
         <PackageReference Include="Hestify" Version="1.0.0" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="$(AspNetCoreVersion)" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="$(EntityFrameowrkCoreVersion)" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0" />
-        <PackageReference Include="Moq" Version="4.13.1" />
         <PackageReference Include="NSubstitute" Version="4.2.2" />
         <PackageReference Include="xunit" Version="2.4.0" />
         <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />

@@ -1,15 +1,16 @@
 ﻿// unset
 
-using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using Localizer.Api.Infrastructure;
 using Localizer.Api.Resources.AccountResource;
 using Localizer.Api.Resources.AuthResource.Models;
 using Localizer.Common;
+using Localizer.Common.Helpers;
 using Localizer.Domain.Entities;
 using Microsoft.IdentityModel.Tokens;
 
@@ -19,6 +20,8 @@ namespace Localizer.Api.Resources.AuthResource
 	{
 		private readonly IMapper _mapper;
 
+		private readonly IEmailService _emailService;
+
 		private readonly IDateTimeOffsetProvider _provider;
 
 		private readonly AccountRepository _repository;
@@ -27,11 +30,13 @@ namespace Localizer.Api.Resources.AuthResource
 
 		public AuthenticationService(IDateTimeOffsetProvider provider,
 			IMapper mapper,
+			IEmailService emailService,
 			AccountRepository repository,
 			LocalizerSettings settings)
 		{
 			_provider = provider;
 			_mapper = mapper;
+			_emailService = emailService;
 			_repository = repository;
 			_secretSettings = settings.Authentication;
 		}
@@ -59,6 +64,18 @@ namespace Localizer.Api.Resources.AuthResource
 		{
 			var account = _mapper.Map<Account>(request);
 			await _repository.AddAsync(account);
+			await _emailService.SendMailAsync(request.Email,
+				$"[Localizer] Hello {request.Name}, checkout email confirm code.",
+				$@"""
+Helle {request.Name}!
+
+Welcome to localizer! Your verification code is '{CryptoHelper.GenerateToken(KeyLength.EmailVerificationCode)}'.
+Please use it when you first login time.
+
+Thank you.
+From Localizer team.
+""");
+			
 			return account.Id;
 		}
 	}

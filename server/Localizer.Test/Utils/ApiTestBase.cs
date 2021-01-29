@@ -1,7 +1,9 @@
 ﻿using System;
 using Localizer.Api;
+using Localizer.Domain;
 using Microsoft.Extensions.Logging;
 using Wd3w.AspNetCore.EasyTesting;
+using Wd3w.AspNetCore.EasyTesting.EntityFrameworkCore;
 using Xunit.Abstractions;
 
 namespace Localizer.Test.Utils
@@ -13,9 +15,7 @@ namespace Localizer.Test.Utils
 
 		protected ApiTestBase(ITestOutputHelper helper)
 		{
-			SUT = new SystemUnderTest<Startup>()
-				.ReplaceLoggerFactory(builder => builder.AddXUnit(helper))
-				.DisableOptionValidations<LocalizerSettings>()
+			SUT = new SystemUnderTest<Startup>().DisableOptionValidations<LocalizerSettings>()
 				.DisableStartupFilters()
 				.ReplaceConfigureOptions<LocalizerSettings>(settings =>
 				{
@@ -26,7 +26,10 @@ namespace Localizer.Test.Utils
 					};
 					settings.DatabaseConnection = "";
 					settings.EmailServer = new();
-				});
+				})
+				.ReplaceLoggerFactory(builder => builder.AddXUnit(helper))
+				.ReplaceDistributedInMemoryCache()
+				.ReplaceInMemoryDbContext<LocalizerDb>();
 		}
 
 		public void Dispose()

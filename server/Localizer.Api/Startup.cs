@@ -52,7 +52,7 @@ namespace Localizer.Api
 
 			services.AddTransient<IStartupFilter, HealthCheckStartupFilter>();
 			services.AddScoped(provider => provider.GetRequiredService<IOptionsSnapshot<LocalizerSettings>>().Value);
-			services.AddScoped<EmailService>();
+			services.AddScoped<IEmailService, EmailService>();
 			
 			// Account related registrations.
 			services.AddScoped<AccountService>();

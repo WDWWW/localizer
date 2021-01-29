@@ -1,12 +1,14 @@
 ﻿// unset
 
 using System.Threading.Tasks;
-using Hestify;
+using Localizer.Api.Infrastructure;
 using Localizer.Api.Resources.AuthResource.Models;
-using Localizer.Domain;
+using Localizer.Domain.Entities;
 using Localizer.Test.Utils;
+using NSubstitute;
 using Wd3w.AspNetCore.EasyTesting;
-using Wd3w.AspNetCore.EasyTesting.EntityFrameworkCore;
+using Wd3w.AspNetCore.EasyTesting.Hestify;
+using Wd3w.AspNetCore.EasyTesting.NSubstitute;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -19,27 +21,29 @@ namespace Localizer.Test.Api.Auth
 		}
 
 		[Fact]
-		public async Task Test()
+		public async Task Should_CreateAccountWithSendingConfirmationCodeEmail_When_AllRequiredInfoIsValid()
 		{
-			using var client = SUT
-				.ReplaceInMemoryDbContext<LocalizerDb>()
-				.ReplaceDistributedInMemoryCache()
-				.SetupFixture((LocalizerDb db) =>
-				{
-					return Task.CompletedTask;
-				})
-				.CreateClient();
+			// Given
+			SUT.ReplaceWithSubstitute<IEmailService>(service => service
+				.SendMailAsync(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>())
+				.ReturnsAsync());
 
-			var response = await client.Resource("api/auth/sign-up")
+			// When 
+			var response = await SUT.Resource("api/auth/sign-up")
 				.WithJsonBody(new SignUpRequest
 				{
 					Email = "sample@emil.com",
 					Name = "tester",
-					Password = "password!!"
+					Password = "password!!",
 				})
 				.PostAsync();
 			
+			// Then
 			response.ShouldBeOk();
+			SUT.VerifyEntityExistsByCondition<Account>(account => account.Email == "sample@emil.com" && account.EmailConfirmed == false);
+			SUT.UseSubstitute<IEmailService>(service => service
+				.Received()
+				.SendMailAsync(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>()));
 		}
 	}
 }

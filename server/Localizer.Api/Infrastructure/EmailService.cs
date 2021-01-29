@@ -8,11 +8,18 @@ using System.Threading.Tasks;
 
 namespace Localizer.Api.Infrastructure
 {
-	public class EmailService : IDisposable
+	public interface IEmailService
+	{
+		Task SendMailAsync(string mailTo, string subject, string text);
+
+		MailMessage CreateNoReplyMailMessage(string mailTo, string subject, string text);
+	}
+
+	public class EmailService : IEmailService, IDisposable
 	{
 		private readonly EmailServerSettings _settings;
 
-		private SmtpClient _smtpClient;
+		private readonly SmtpClient _smtpClient;
 
 		public EmailService(LocalizerSettings settings)
 		{
@@ -30,7 +37,7 @@ namespace Localizer.Api.Infrastructure
 			await _smtpClient.SendMailAsync(mailMessage);
 		}
 
-		private MailMessage CreateNoReplyMailMessage(string mailTo, string subject, string text) =>
+		public MailMessage CreateNoReplyMailMessage(string mailTo, string subject, string text) =>
 			new()
 			{
 				From = new MailAddress(_settings.NoReply),
