@@ -1,6 +1,4 @@
-﻿// unset
-
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Localizer.Api.Resources.AccountResource;
 using Localizer.Api.Resources.AuthResource.Models;
 using Microsoft.AspNetCore.Mvc;

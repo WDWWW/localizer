@@ -4,6 +4,7 @@
   <ItemGroup>
     <PackageReference Include="AspNetCore.HealthChecks.Network" Version="$(AspNetCoreVersion)" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="$(AspNetCoreVersion)" />
+    <PackageReference Include="Microsoft.AspNetCore.Cryptography.KeyDerivation" Version="5.0.2" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="$(EntityFrameowrkCoreVersion)" />
   </ItemGroup>
 
