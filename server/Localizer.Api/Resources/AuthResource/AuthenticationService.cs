@@ -1,5 +1,6 @@
 ﻿// unset
 
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -7,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Localizer.Api.Infrastructure;
+using Localizer.Api.Infrastructure.Helpers;
 using Localizer.Api.Resources.AccountResource;
 using Localizer.Api.Resources.AuthResource.Models;
 using Localizer.Common;
@@ -63,6 +65,8 @@ namespace Localizer.Api.Resources.AuthResource
 		public async Task<int> CreateAccountAsync(SignUpRequest request)
 		{
 			var account = _mapper.Map<Account>(request);
+			account.PasswordHash = PasswordHelper.HashPassword(request.Password);
+			
 			await _repository.AddAsync(account);
 			await _emailService.SendMailAsync(request.Email,
 				$"[Localizer] Hello {request.Name}, checkout email confirm code.",
