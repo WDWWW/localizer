@@ -15,9 +15,13 @@ namespace Localizer.Test.Utils
 {
 	public static class EasyTestingHelper
 	{
-		public static SystemUnderTest VerifyEntityExistsByCondition<TEntity>(this SystemUnderTest sut, Expression<Func<TEntity, bool>> condition) where TEntity : class
+		public static SystemUnderTest VerifyEntityExistsByCondition<TEntity>(this SystemUnderTest sut, Expression<Func<TEntity, bool>> condition, Action<TEntity>? verifier = default) where TEntity : class
 		{
-			sut.UsingService((LocalizerDb db) => db.Set<TEntity>().Any(condition).Should().BeTrue());
+			sut.UsingService((LocalizerDb db) =>
+			{
+				db.Set<TEntity>().Any(condition).Should().BeTrue();
+				verifier?.Invoke(db.Set<TEntity>().First(condition));
+			});
 			return sut;
 		}
 

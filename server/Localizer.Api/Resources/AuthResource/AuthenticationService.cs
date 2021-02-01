@@ -57,23 +57,25 @@ namespace Localizer.Api.Resources.AuthResource
 					new(ClaimTypes.NameIdentifier, account.Id.ToString()),
 					new(ClaimTypes.Name, account.Name),
 				},
-				expires: _provider.Now.AddMilliseconds(15).UtcDateTime,
+				expires: _provider.Now.AddHours(3).UtcDateTime,
 				signingCredentials: credentials);
 			return new JwtSecurityTokenHandler().WriteToken(jwt);
 		}
 
 		public async Task<int> CreateAccountAsync(SignUpRequest request)
 		{
-			var account = _mapper.Map<Account>(request);
-			account.PasswordHash = PasswordHelper.HashPassword(request.Password);
-			
+			var account = _mapper.Map(request, new Account
+			{
+				EmailVerificationCode = CryptoHelper.GenerateToken(KeyLength.EmailVerificationCode),
+				PasswordHash = PasswordHelper.HashPassword(request.Password),
+			});
 			await _repository.AddAsync(account);
 			await _emailService.SendMailAsync(request.Email,
 				$"[Localizer] Hello {request.Name}, checkout email confirm code.",
 				$@"""
 Helle {request.Name}!
 
-Welcome to localizer! Your verification code is '{CryptoHelper.GenerateToken(KeyLength.EmailVerificationCode)}'.
+Welcome to localizer! Your verification code is '{account.EmailVerificationCode}'.
 Please use it when you first login time.
 
 Thank you.
@@ -81,6 +83,18 @@ From Localizer team.
 """);
 			
 			return account.Id;
+		}
+
+		public async Task<bool> VerifyEmailConfirmedByEmailAsync(string email)
+		{
+			var account = await _repository.GetAccountByEmailAsync(email);
+			return account.EmailConfirmed;
+		}
+		
+		public async Task<bool> VerifyEmailAndPasswordAsync(SignInRequest request)
+		{
+			var account = await _repository.GetAccountByEmailAsync(request.Email);
+			return PasswordHelper.VerifyPassword(account.PasswordHash, request.Password);
 		}
 	}
 }

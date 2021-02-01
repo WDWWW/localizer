@@ -15,7 +15,8 @@ namespace Localizer.Test.Utils
 
 		protected ApiTestBase(ITestOutputHelper helper)
 		{
-			SUT = new SystemUnderTest<Startup>().DisableOptionValidations<LocalizerSettings>()
+			SUT = new SystemUnderTest<Startup>()
+				.DisableOptionValidations<LocalizerSettings>()
 				.DisableStartupFilters()
 				.ReplaceConfigureOptions<LocalizerSettings>(settings =>
 				{

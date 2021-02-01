@@ -34,6 +34,25 @@ namespace Localizer.Api.Resources.AuthResource
 
 			return Ok();
 		}
-		
+
+		[HttpPost("sign-in")]
+		public async Task<ActionResult<SIgnInResponse>> SignInAsync([FromBody] SignInRequest request)
+		{
+			if (!await _accountService.EmailExistsAsync(request.Email))
+				return NotFound("there are no account for email.");
+
+
+			if (!await _service.VerifyEmailAndPasswordAsync(request))
+				return Unauthorized();
+
+
+			if (!await _service.VerifyEmailConfirmedByEmailAsync(request.Email))
+				return Forbid();
+			
+			return Ok(new SIgnInResponse
+			{
+				Token = await _service.CreateTokenAsync(request.Email),
+			});
+		}
 	}
 }

@@ -1,4 +1,6 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Localizer.Common;
 using Localizer.Domain.Entities.Common;
 using Microsoft.EntityFrameworkCore;
 
@@ -28,7 +30,21 @@ namespace Localizer.Domain.Entities
 		/// <summary>
 		///		Determine account email confirmed.
 		/// </summary>
+		[NotMapped]
+		public bool EmailConfirmed => string.IsNullOrEmpty(EmailVerificationCode);
+
+		/// <summary>
+		///		Verification code for email confirmation.	
+		/// </summary>
 		[Required]
-		public bool EmailConfirmed { get; set; }
+		[MaxLength(KeyLength.EmailVerificationCode)]
+		public string EmailVerificationCode { get; set; } = string.Empty;
+
+		/// <summary>
+		///		Reset code for changing password.
+		/// </summary>
+		[Required]
+		[MaxLength(KeyLength.PasswordResetCode)]
+		public string PasswordResetCode { get; set; } = string.Empty;
 	}
 }

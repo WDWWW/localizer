@@ -11,11 +11,10 @@ namespace Localizer.Test.Utils.FixtureBuilder
 	{
 		public static readonly string DefaultAccountPassword = "tester01!";
 		
-		public static readonly Account DefaultAccount = new()
+		public static Account DefaultAccount => new()
 		{
 			Email = "tester@test.com",
 			Name = "tester",
-			EmailConfirmed = true,
 			PasswordHash = PasswordHelper.HashPassword(DefaultAccountPassword),
 		};
 		

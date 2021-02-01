@@ -1,5 +1,7 @@
 ﻿using System.Net;
+using System.Security.Principal;
 using System.Threading.Tasks;
+using FluentAssertions;
 using Localizer.Api.Infrastructure;
 using Localizer.Api.Resources.AuthResource.Models;
 using Localizer.Domain.Entities;
@@ -29,17 +31,16 @@ namespace Localizer.Test.Api.Auth
 
 			// When 
 			var response = await SUT.PostAsync("api/auth/sign-up",
-				new SignUpRequest
-				{
-					Email = "sample@emil.com", 
-					Name = "tester", 
-					Password = "password!!",
-				});
+				new SignUpRequest {Email = "sample@emil.com", Name = "tester", Password = "password!!"});
 
 			// Then	
 			response.ShouldBeOk();
-			SUT.VerifyEntityExistsByCondition<Account>(acc =>
-				acc.Email == "sample@emil.com" && acc.EmailConfirmed == false);
+			SUT.VerifyEntityExistsByCondition<Account>(acc => acc.Email == "sample@emil.com",
+				account =>
+				{
+					account.EmailConfirmed.Should().BeFalse();
+					account.EmailVerificationCode.Should().NotBeNullOrEmpty();
+				});
 			SUT.UseSubstitute<IEmailService>(service => service
 				.Received()
 				.SendMailAsync(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>()));
@@ -53,12 +54,7 @@ namespace Localizer.Test.Api.Auth
 
 			// When
 			var message = await SUT.PostAsync("api/auth/sign-up",
-				new SignUpRequest
-				{
-					Email = LocalizerDbFixture.DefaultAccount.Email,
-					Name = "display name",
-					Password = "somePassword01!",
-				});
+				new SignUpRequest {Email = LocalizerDbFixture.DefaultAccount.Email, Name = "display name", Password = "somePassword01!"});
 
 			// Then
 			message.ShouldBe(HttpStatusCode.BadRequest);

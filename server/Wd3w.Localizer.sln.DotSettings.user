@@ -12,6 +12,11 @@
       &lt;TestId&gt;xUnit::DE99C6B7-C5A1-4E60-87F6-B3369327CBA7::net5.0::Localizer.Test.Api.Auth.SignUpApiTest.Should_CreateAccountWithSendingConfirmationCodeEmail_When_AllRequiredInfoIsValid&lt;/TestId&gt;&#xD;
       &lt;TestId&gt;xUnit::DE99C6B7-C5A1-4E60-87F6-B3369327CBA7::net5.0::Localizer.Test.Api.Auth.SignUpApiTest.Should_ResponseBadRequest_When_RequestedEmailAlreadyExists&lt;/TestId&gt;&#xD;
       &lt;TestId&gt;xUnit::DE99C6B7-C5A1-4E60-87F6-B3369327CBA7::net5.0::Localizer.Test.Api.Auth.SignUpApiTest&lt;/TestId&gt;&#xD;
+      &lt;TestId&gt;xUnit::DE99C6B7-C5A1-4E60-87F6-B3369327CBA7::net5.0::Localizer.Test.Api.Auth.SignInApiTest.Should_ReturnNotFound_When_EmailDoesntExists&lt;/TestId&gt;&#xD;
+      &lt;TestId&gt;xUnit::DE99C6B7-C5A1-4E60-87F6-B3369327CBA7::net5.0::Localizer.Test.Api.Auth.SignInApiTest.Should_ReturnForbid_When_RequestEmailAccountIsUnconfirmed&lt;/TestId&gt;&#xD;
+      &lt;TestId&gt;xUnit::DE99C6B7-C5A1-4E60-87F6-B3369327CBA7::net5.0::Localizer.Test.Api.Auth.SignInApiTest.Should_ReturnUnauthorized_When_RequestPasswordIsInvalid&lt;/TestId&gt;&#xD;
+      &lt;TestId&gt;xUnit::DE99C6B7-C5A1-4E60-87F6-B3369327CBA7::net5.0::Localizer.Test.Api.Auth.SignInApiTest.Should_ReturnJWT_When_RequestPasswordIsInvalid&lt;/TestId&gt;&#xD;
+      &lt;TestId&gt;xUnit::DE99C6B7-C5A1-4E60-87F6-B3369327CBA7::net5.0::Localizer.Test.Api.Auth.SignInApiTest&lt;/TestId&gt;&#xD;
     &lt;/TestAncestor&gt;&#xD;
   &lt;/Or&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
