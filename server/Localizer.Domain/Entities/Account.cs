@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Localizer.Common;
@@ -46,5 +48,10 @@ namespace Localizer.Domain.Entities
 		[Required]
 		[MaxLength(KeyLength.PasswordResetCode)]
 		public string PasswordResetCode { get; set; } = string.Empty;
+
+		/// <summary>
+		///		Access token issuing histories.
+		/// </summary>
+		public virtual ICollection<AccountAccessTokenHistory> AccessTokenHistories { get; set; }
 	}
 }

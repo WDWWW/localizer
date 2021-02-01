@@ -10,5 +10,7 @@ namespace Localizer.Domain
 		}
 
 		public DbSet<Account> Accounts { get; set; }
+
+		public DbSet<AccountAccessTokenHistory> AccessTokenHistories { get; set; }
 	}
 }

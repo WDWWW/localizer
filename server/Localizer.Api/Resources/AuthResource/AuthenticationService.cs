@@ -1,9 +1,5 @@
-﻿// unset
-
-using System.Collections.Concurrent;
-using System.Collections.Generic;
+﻿using System;
 using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -28,47 +24,109 @@ namespace Localizer.Api.Resources.AuthResource
 
 		private readonly AccountRepository _repository;
 
+		private readonly AccessTokenHistoryRepository _tokenHistoryRepository;
+
 		private readonly AuthenticationSecretSettings _secretSettings;
+
+		private readonly SigningCredentials _signingCredentials;
+
+		private SymmetricSecurityKey _signingKey;
 
 		public AuthenticationService(IDateTimeOffsetProvider provider,
 			IMapper mapper,
 			IEmailService emailService,
 			AccountRepository repository,
+			AccessTokenHistoryRepository tokenHistoryRepository,
 			LocalizerSettings settings)
 		{
 			_provider = provider;
 			_mapper = mapper;
 			_emailService = emailService;
 			_repository = repository;
+			_tokenHistoryRepository = tokenHistoryRepository;
 			_secretSettings = settings.Authentication;
+			_signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_secretSettings.TokenSigningKey));
+			_signingCredentials = new SigningCredentials(_signingKey, SecurityAlgorithms.HmacSha256);
 		}
 
 		public async Task<string> CreateTokenAsync(string email)
 		{
 			var account = await _repository.GetAccountByEmailAsync(email);
-
-			var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_secretSettings.TokenSigningKey));
-			var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-			var jwt = new JwtSecurityToken(_secretSettings.ServiceName,
-				_secretSettings.ServiceName,
-				new List<Claim>
-				{
-					new(ClaimTypes.Email, account.Email),
-					new(ClaimTypes.NameIdentifier, account.Id.ToString()),
-					new(ClaimTypes.Name, account.Name),
-				},
-				expires: _provider.Now.AddHours(3).UtcDateTime,
-				signingCredentials: credentials);
-			return new JwtSecurityTokenHandler().WriteToken(jwt);
+			var token = GenerateAccessToken(account);
+			await _tokenHistoryRepository.AddAsync(new AccountAccessTokenHistory {Account = account, NewToken = token});
+			return token;
 		}
+
+		public async Task<bool> IsRefreshableTokenAsync(string token)
+		{
+			return !await _tokenHistoryRepository.RefreshHistoryExistsAsync(token);
+		}
+
+		public bool TryValidateToken(string token, out JwtSecurityToken? jwtSecurityToken)
+		{
+			try
+			{
+				new JwtSecurityTokenHandler().ValidateToken(token,
+					new TokenValidationParameters
+					{
+						ValidateLifetime = false,
+						ValidateAudience = true,
+						ValidateIssuer = true,
+						ValidIssuer = _secretSettings.ServiceName,
+						ValidAudience = _secretSettings.ServiceName,
+						IssuerSigningKey = _signingKey,
+					},
+					out var securityToken);
+
+				jwtSecurityToken = securityToken as JwtSecurityToken ?? throw new InvalidOperationException();
+
+				if (_provider.Now.UtcDateTime > jwtSecurityToken.IssuedAt.AddDays(31).ToUniversalTime())
+					return false;
+			}
+			catch (Exception)
+			{
+				jwtSecurityToken = default;
+				return false;
+			}
+
+			return true;
+		}
+
+		public async Task<string> RefreshTokenAsync(string token)
+		{
+			TryValidateToken(token, out var securityToken);
+			var accountId = securityToken!.Payload["account.id"] as int?
+				?? throw new InvalidOperationException("Cannot found account id from jwt");
+
+			var account = await _repository.FindAsync(accountId)
+				?? throw new InvalidOperationException("Cannot found account about account.id from access token.");
+
+			var newToken = GenerateAccessToken(account);
+			await _tokenHistoryRepository.AddAsync(new AccountAccessTokenHistory
+			{
+				Account = account, FromToken = token, NewToken = newToken,
+			});
+			return newToken;
+		}
+
+		private string GenerateAccessToken(Account account) =>
+			new JwtSecurityTokenHandler().WriteToken(
+				new JwtSecurityToken(_secretSettings.ServiceName,
+					_secretSettings.ServiceName,
+					expires: _provider.Now.AddHours(3).UtcDateTime,
+					signingCredentials: _signingCredentials)
+				{
+					Payload = {{"account.email", account.Email}, {"account.id", account.Id}, {"account.name", account.Name},},
+				});
 
 		public async Task<int> CreateAccountAsync(SignUpRequest request)
 		{
-			var account = _mapper.Map(request, new Account
-			{
-				EmailVerificationCode = CryptoHelper.GenerateToken(KeyLength.EmailVerificationCode),
-				PasswordHash = PasswordHelper.HashPassword(request.Password),
-			});
+			var account = _mapper.Map(request,
+				new Account
+				{
+					EmailVerificationCode = CryptoHelper.GenerateToken(KeyLength.EmailVerificationCode),
+					PasswordHash = PasswordHelper.HashPassword(request.Password),
+				});
 			await _repository.AddAsync(account);
 			await _emailService.SendMailAsync(request.Email,
 				$"[Localizer] Hello {request.Name}, checkout email confirm code.",
@@ -81,7 +139,7 @@ Please use it when you first login time.
 Thank you.
 From Localizer team.
 """);
-			
+
 			return account.Id;
 		}
 
@@ -90,7 +148,7 @@ From Localizer team.
 			var account = await _repository.GetAccountByEmailAsync(email);
 			return account.EmailConfirmed;
 		}
-		
+
 		public async Task<bool> VerifyEmailAndPasswordAsync(SignInRequest request)
 		{
 			var account = await _repository.GetAccountByEmailAsync(request.Email);

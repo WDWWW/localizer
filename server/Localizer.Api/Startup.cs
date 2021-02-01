@@ -72,7 +72,7 @@ namespace Localizer.Api
 						ValidIssuer = _settings.Authentication.ServiceName,
 						ValidAudience = _settings.Authentication.ServiceName,
 						IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_settings.Authentication.TokenSigningKey)),
-					};
+					}; 
 				});
 			
 			services.AddDbContext<LocalizerDb>();

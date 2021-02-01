@@ -1,4 +1,7 @@
-﻿using System.Net;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
+using System.Net;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Localizer.Api.Resources.AuthResource.Models;
@@ -67,7 +70,7 @@ namespace Localizer.Test.Api.Auth
 				new SignInRequest {Email = LocalizerDbFixture.DefaultAccount.Email, Password = LocalizerDbFixture.DefaultAccountPassword});
 
 			// Then
-			var response = await message.ShouldBeCodeWithBody<SIgnInResponse>(HttpStatusCode.OK);
+			var response = await message.ShouldBeCodeWithBody<SignInResponse>(HttpStatusCode.OK);
 			response.Token.Should().NotBeNullOrEmpty();
 		}
 	}

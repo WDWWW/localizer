@@ -36,7 +36,7 @@ namespace Localizer.Api.Resources.AuthResource
 		}
 
 		[HttpPost("sign-in")]
-		public async Task<ActionResult<SIgnInResponse>> SignInAsync([FromBody] SignInRequest request)
+		public async Task<ActionResult<SignInResponse>> SignInAsync([FromBody] SignInRequest request)
 		{
 			if (!await _accountService.EmailExistsAsync(request.Email))
 				return NotFound("there are no account for email.");
@@ -49,10 +49,29 @@ namespace Localizer.Api.Resources.AuthResource
 			if (!await _service.VerifyEmailConfirmedByEmailAsync(request.Email))
 				return Forbid();
 			
-			return Ok(new SIgnInResponse
+			return Ok(new SignInResponse
 			{
 				Token = await _service.CreateTokenAsync(request.Email),
 			});
+		}
+
+		/// <summary>
+		///		Refresh access token.
+		/// </summary>
+		/// <param name="request"></param>
+		/// <returns></returns>
+		[HttpPost("refresh")]
+		public async Task<ActionResult<RefreshTokenResponse>> RefreshTokenAsync([FromBody] RefreshTokenRequest request)
+		{
+			if (!_service.TryValidateToken(request.Token, out _))
+				return BadRequest("Invalid jwt access token.");
+
+			if (!await _service.IsRefreshableTokenAsync(request.Token))
+				return Forbid();
+
+			var newToken = await _service.RefreshTokenAsync(request.Token);
+
+			return Ok(new RefreshTokenResponse {Token = newToken});
 		}
 	}
 }

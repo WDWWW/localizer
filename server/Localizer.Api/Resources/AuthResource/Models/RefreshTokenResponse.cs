@@ -1,9 +1,9 @@
 ﻿namespace Localizer.Api.Resources.AuthResource.Models
 {
-	public class SIgnInResponse
+	public class RefreshTokenResponse
 	{
 		/// <summary>
-		///		Account JWT Token
+		///		New generated access token.
 		/// </summary>
 		public string Token { get; set; }
 	}
